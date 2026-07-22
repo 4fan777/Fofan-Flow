@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <meta name="theme-color" content="#0c090b">
+  <title>Fofan Montage</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <div class="ambient"></div>
+  <main class="shell">
+    <header class="topbar">
+      <button class="brand" data-nav="home" aria-label="Fofan Montage"><span class="brand-mark">FM</span><span>FOFAN<br>MONTAGE</span></button>
+      <span id="connection" class="connection">ONLINE</span>
+    </header>
+
+    <section id="screen-home" class="screen active">
+      <div class="hero">
+        <div class="eyebrow" data-i18n="workspace">ТВОЁ ПРОСТРАНСТВО</div>
+        <h1><span data-i18n="hello">Привет</span>, <span id="first-name">монтажёр</span>.</h1>
+        <p data-i18n="heroText">Fofan Flow, подписка и активность — в одном кабинете.</p>
+      </div>
+      <article class="status-card">
+        <div class="status-head"><span id="plan-badge" class="pill">FREE</span><span id="expiry">Без подписки</span></div>
+        <div class="usage-row"><div><strong id="usage-value">0 / 0</strong><small data-i18n="actionsCycle">действий в цикле</small></div><div id="usage-ring" class="usage-ring"><span id="usage-percent">0%</span></div></div>
+        <div class="progress"><i id="usage-bar"></i></div>
+        <div class="cycle" id="cycle-label">Обновится после активации</div>
+      </article>
+      <div class="metrics">
+        <article><span data-i18n="launches">Запуски</span><strong id="launches">0</strong><small data-i18n="last7">за 7 дней</small></article>
+        <article><span data-i18n="version">Версия</span><strong id="version">1.1.0</strong><small>Windows</small></article>
+      </div>
+      <article class="key-card"><div><small data-i18n="licenseKey">Ключ лицензии</small><code id="license-key">Нет активного ключа</code></div><button id="copy-key" class="icon-btn" aria-label="Copy">⧉</button></article>
+      <button class="primary wide" data-nav="subs" data-i18n="choosePlan">Выбрать тариф</button>
+    </section>
+
+    <section id="screen-app" class="screen">
+      <div class="section-title"><span class="eyebrow">FOFAN FLOW</span><h2 data-i18n="appTitle">Приложение</h2><p data-i18n="appText">Инструменты для быстрого монтажа в After Effects и Premiere Pro.</p></div>
+      <article class="download-card"><div class="app-icon">FF</div><div><strong>Fofan Flow</strong><span>v<span id="download-version">1.1.0</span> · Windows</span></div><button id="download-win" class="primary" data-i18n="download">Скачать</button></article>
+      <article class="download-card disabled"><div class="app-icon apple">⌘</div><div><strong>Fofan Flow</strong><span>macOS</span></div><button disabled data-i18n="soon">Скоро</button></article>
+      <h3 data-i18n="whatInside">Что внутри</h3>
+      <div class="feature-grid"><div>✂<span data-i18n="silence">Удаление пауз</span></div><div>CC<span data-i18n="subs">Субтитры</span></div><div>♫<span data-i18n="beats">Маркеры по битам</span></div><div>FX<span>Fast FX + SFX</span></div></div>
+    </section>
+
+    <section id="screen-subs" class="screen">
+      <div class="section-title"><span class="eyebrow" data-i18n="plans">ТАРИФЫ</span><h2 data-i18n="chooseYour">Выбери свой Flow</h2><p data-i18n="oneAction">Одна завершённая операция в плагине = 1 действие.</p></div>
+      <div class="periods" id="periods"><button class="active" data-months="1">1 мес.</button><button data-months="3">3 мес.<b>−5%</b></button><button data-months="6">6 мес.<b>−10%</b></button><button data-months="12">12 мес.<b>−15%</b></button></div>
+      <div id="plan-list" class="plan-list"></div>
+      <p class="fineprint" data-i18n="manualPay">Оплата сейчас подтверждается вручную по чеку в Telegram.</p>
+    </section>
+
+    <section id="screen-me" class="screen">
+      <div class="profile"><div id="avatar" class="avatar">FM</div><div><h2 id="profile-name">Fofan</h2><span id="profile-username">Telegram</span></div></div>
+      <article class="menu-card"><div><span>Telegram</span><b data-i18n="connected">Подключён</b></div><div><span data-i18n="referrals">Рефералы</span><b id="referrals">0 / 10</b></div><button id="copy-ref" class="row-button"><span data-i18n="invite">Скопировать приглашение</span><b>+5%</b></button></article>
+      <h3 data-i18n="news">Новости</h3><div id="news-list" class="news-list"></div>
+      <article class="menu-card legal"><a id="support-link" href="#" data-i18n="support">Поддержка</a><button data-modal="privacy" data-i18n="privacy">Политика конфиденциальности</button><button data-modal="terms" data-i18n="terms">Условия использования</button></article>
+    </section>
+  </main>
+
+  <nav class="bottom-nav"><button class="avatar-nav active" data-nav="home"><span>FM</span></button><button data-nav="app"><i>◫</i><span>App</span></button><button data-nav="subs"><i>◇</i><span>Subs</span></button><button data-nav="me"><i>○</i><span>Me</span></button></nav>
+  <div id="toast" class="toast"></div>
+  <dialog id="modal"><button id="modal-close" class="modal-close">×</button><div id="modal-body"></div></dialog>
+  <script src="config.js"></script><script src="app.js"></script>
+</body>
+</html>
