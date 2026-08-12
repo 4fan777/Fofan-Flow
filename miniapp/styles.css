@@ -55,6 +55,9 @@ h3{font-size:14px;font-weight:600;margin:24px 2px 12px;color:var(--muted);text-t
 .periods{display:flex;gap:0;overflow:auto;padding:2px;margin-bottom:12px;background:var(--card);border:1px solid var(--line);border-radius:13px}
 .periods button{flex:1;white-space:nowrap;border:0;background:none;color:var(--muted);border-radius:11px;padding:9px 10px;font-size:12px;font-weight:600}
 .periods button.active{background:#fff;color:#000}
+.periods .free-period{color:#51f287;font-weight:800}
+.periods .free-period:not(:disabled){box-shadow:inset 0 0 0 1px rgba(81,242,135,.45)}
+.periods .free-period:disabled,.periods .free-period.trial-used{color:#68686d;background:#171719;box-shadow:none;cursor:not-allowed;opacity:.72}
 .periods b{display:block;font-size:8px;color:var(--muted);margin-top:2px}
 .periods button.active b{color:#3a3a3c}
 .plan-list{display:grid;gap:10px}
