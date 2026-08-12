@@ -58,6 +58,8 @@ h3{font-size:14px;font-weight:600;margin:24px 2px 12px;color:var(--muted);text-t
 .periods b{display:block;font-size:8px;color:var(--muted);margin-top:2px}
 .periods button.active b{color:#3a3a3c}
 .plan-list{display:grid;gap:10px}
+.trial-offer{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px;margin-bottom:12px;background:var(--card);border:1px solid var(--line);border-radius:18px}
+.trial-offer strong,.trial-offer span{display:block}.trial-offer strong{font-size:16px}.trial-offer span{color:var(--muted);font-size:11px;margin-top:5px;line-height:1.35}.trial-offer[hidden]{display:none}
 .plan{padding:20px;position:relative;overflow:hidden}
 .plan.featured{border-color:rgba(255,255,255,.28)}
 .plan.featured:after{content:"ПОПУЛЯРНЫЙ";position:absolute;right:16px;top:18px;color:var(--text);border:1px solid rgba(255,255,255,.24);font-size:8px;font-weight:700;letter-spacing:.1em;padding:5px 9px;border-radius:99px}
