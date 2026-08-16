@@ -67,6 +67,8 @@ h3{font-size:14px;font-weight:600;margin:24px 2px 12px;color:var(--muted);text-t
 .plan.featured{border-color:rgba(255,255,255,.28)}
 .plan.featured:after{content:"ПОПУЛЯРНЫЙ";position:absolute;right:16px;top:18px;color:var(--text);border:1px solid rgba(255,255,255,.24);font-size:8px;font-weight:700;letter-spacing:.1em;padding:5px 9px;border-radius:99px}
 .plan h3{font-size:20px;font-weight:700;margin:0;color:var(--text);text-transform:none;letter-spacing:-.02em}
+.plan .sale-line{display:flex;align-items:center;gap:8px;margin-top:10px;color:var(--muted);font-size:12px}
+.plan .sale-line b{color:#51f287;font-size:9px;letter-spacing:.08em}
 .plan .price{font-size:30px;font-weight:700;margin:12px 0;letter-spacing:-.03em}
 .plan .price small{font-size:12px;font-weight:500;color:var(--muted)}
 .plan ul{padding:0;margin:0 0 16px;list-style:none;color:var(--muted);font-size:13px;line-height:1.9}
