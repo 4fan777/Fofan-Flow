@@ -32,7 +32,8 @@
         <article><span data-i18n="launches">Запуски</span><strong id="launches">0</strong><small data-i18n="last7">за 7 дней</small></article>
         <article><span data-i18n="version">Версия</span><strong id="version">4.0</strong><small>Windows</small></article>
       </div>
-      <article class="key-card"><div><small data-i18n="licenseKey">Ключ лицензии</small><code id="license-key">Нет активного ключа</code></div><button id="copy-key" class="icon-btn" aria-label="Copy">⧉</button></article>
+      <article class="key-card"><div><small data-i18n="licenseKey">Ключ лицензии</small><code id="license-key">Нет активного ключа</code></div><div class="key-actions"><button id="change-key" class="text-btn" type="button">Сменить</button><button id="copy-key" class="icon-btn" aria-label="Copy">⧉</button></div></article>
+      <form id="key-form" class="key-form" hidden><label for="new-license-key">Новый ключ Fofan Flow</label><div><input id="new-license-key" type="text" autocomplete="off" spellcheck="false" placeholder="XXXX-XXXX-XXXX-XXXX"><button id="save-key" class="primary" type="submit">Подключить</button></div><small>Покажем тариф и статистику именно этого ключа.</small><button id="cancel-key" class="text-btn" type="button">Отмена</button></form>
       <button class="primary wide" data-nav="subs" data-i18n="choosePlan">Выбрать тариф</button>
     </section>
 

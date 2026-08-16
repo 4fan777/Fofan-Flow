@@ -71,6 +71,7 @@ h3{font-size:14px;font-weight:600;margin:24px 2px 12px;color:var(--muted);text-t
 .plan .sale-line b{color:#51f287;font-size:9px;letter-spacing:.08em}
 .plan .price{font-size:30px;font-weight:700;margin:12px 0;letter-spacing:-.03em}
 .plan .price small{font-size:12px;font-weight:500;color:var(--muted)}
+.key-actions{display:flex;align-items:center;gap:6px}.text-btn{border:0;background:none;color:var(--muted);font-size:12px;font-weight:700;padding:8px}.key-form{margin:-5px 0 18px;padding:14px;background:var(--card);border:1px solid var(--line);border-radius:16px}.key-form label,.key-form small{display:block}.key-form label{font-size:12px;font-weight:700;margin-bottom:9px}.key-form>div{display:flex;gap:8px}.key-form input{min-width:0;flex:1;border:1px solid var(--line);background:#09090a;color:var(--text);border-radius:11px;padding:11px;font:600 12px monospace;text-transform:uppercase}.key-form .primary{padding:0 13px}.key-form small{color:var(--muted);font-size:10px;margin-top:8px}.key-form>.text-btn{margin-top:4px;padding-left:0}
 .plan ul{padding:0;margin:0 0 16px;list-style:none;color:var(--muted);font-size:13px;line-height:1.9}
 .plan li:before{content:"✓";color:var(--text);margin-right:8px;font-weight:600}
 .plan button{width:100%}
