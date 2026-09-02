@@ -12,7 +12,9 @@ const config=read('miniapp/config.js');
 
 assert.match(html,/<title>WADEONIX<\/title>/);
 assert.match(html,/class="brand-mark">WX<\/span>/);
-assert.match(html,/class="app-icon">WX<\/div>/);
+assert.match(html,/<img class="app-icon app-avatar" src="bot_avatar\.jpg" alt="Wade Onix">/);
+assert.doesNotMatch(html,/class="app-icon">WX<\/div>/);
+assert.equal((html.match(/<strong>Wade Onix<\/strong>/g)||[]).length,2);
 assert.match(html,/>WADEONIX</);
 assert.doesNotMatch(html,/Fofan Flow|Fofan Montage|Fofan Essentials/i);
 assert.doesNotMatch(app,/Fofan Flow|Fofan Montage|Fofan Essentials/i);
