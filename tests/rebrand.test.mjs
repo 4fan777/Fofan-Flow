@@ -23,7 +23,7 @@ assert.match(config,/apiUrl:\s*"https:\/\/fofan-miniapp-api\./);
 
 for(const relative of ['start_banner.png','miniapp/start_banner.png']){
   const hash=crypto.createHash('sha256').update(fs.readFileSync(path.join(root,relative))).digest('hex');
-  assert.equal(hash,'9ed62db32572cdf269a011887da6e0f6ba825afead1dcaf408c6de58308df63d',`${relative} must not change`);
+  assert.equal(hash,'660bba350182d37dd9c0b3714a1287e0f92a3aea0af014981a9a899f8985df3b',`${relative} must use the supplied WADE artwork`);
 }
 
 console.log('WADEONIX Mini App branding OK');
