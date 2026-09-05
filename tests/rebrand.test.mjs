@@ -18,11 +18,11 @@ assert.equal((html.match(/<strong>Wade Onix<\/strong>/g)||[]).length,2);
 assert.match(html,/>WADEONIX</);
 assert.doesNotMatch(html,/Fofan Flow|Fofan Montage|Fofan Essentials/i);
 assert.doesNotMatch(app,/Fofan Flow|Fofan Montage|Fofan Essentials/i);
-assert.match(config,/appVersion:\s*"4\.1\.6"/);
+assert.match(config,/appVersion:\s*"5\.0\.0"/);
 assert.match(config,/supportUsername:\s*"itsWade"/);
 assert.doesNotMatch(app,/dwayne633/);
-assert.match(config,/releases\/download\/v4\.1\.6\/WADEONIX-v4\.1\.6\.zip/);
-assert.match(config,/botUsername:\s*"FofanFlowBot"/);
+assert.match(config,/releases\/download\/v5\.0\.0\/WADEONIX-v5\.0\.0\.zip/);
+assert.match(config,/botUsername:\s*"WadeOnix_Bot"/);
 assert.match(config,/apiUrl:\s*"https:\/\/fofan-miniapp-api\./);
 
 for(const relative of ['start_banner.png','miniapp/start_banner.png']){
