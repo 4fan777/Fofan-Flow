@@ -1,10 +1,10 @@
 (() => {
   const cfg = window.FM_CONFIG || {};
   const tg = window.Telegram?.WebApp;
-  const state = { months: 3, plan: 'basic', tool: 'tools', data: null, lang: (tg?.initDataUnsafe?.user?.language_code || navigator.language || 'ru').toLowerCase().startsWith('ru') ? 'ru' : 'en' };
+  const state = { months: 1, plan: 'basic', tool: 'tools', data: null, lang: (tg?.initDataUnsafe?.user?.language_code || navigator.language || 'ru').toLowerCase().startsWith('ru') ? 'ru' : 'en' };
   const prices=globalThis.FM_PRICES||{};
   const planConfig=globalThis.FM_PLANS;
-  const purchasableMonths=globalThis.FM_PURCHASABLE_MONTHS||[3,6,12];
+  const purchasableMonths=globalThis.FM_PURCHASABLE_MONTHS||[1,3,12];
   const $ = (s, root=document) => root.querySelector(s);
   const $$ = (s, root=document) => [...root.querySelectorAll(s)];
   const dict = {
@@ -34,8 +34,8 @@
     $('#card-monthly').textContent=money(quote.monthly);
     $('#quote-monthly').textContent=money(quote.monthly);
     $('#plan-total').textContent=money(quote.total);
-    $('#total-label').textContent=(state.months===12?'На год':state.months===3?'3 месяца':'6 месяцев')+' · Итого';
-    $('#plan-saving').textContent='Экономия '+money(quote.saving);
+    $('#total-label').textContent=(state.months===12?'Год':state.months===3?'3 месяца':'1 месяц')+' · Итого';
+    const saving=$('#plan-saving');saving.textContent=quote.saving?'Экономия '+money(quote.saving):'';saving.hidden=!quote.saving;
     const planKeys=Object.keys(planConfig),planTabs=$('#plan-tabs');planTabs.style.setProperty('--plan-index',String(planKeys.indexOf(state.plan)));
     $$('#plan-tabs button').forEach(b=>{const active=b.dataset.plan===state.plan;b.classList.toggle('active',active);b.setAttribute('aria-selected',String(active));b.tabIndex=active?0:-1});
     $$('#periods button').forEach(b=>{const active=+b.dataset.months===state.months;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active))});
