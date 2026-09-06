@@ -10,8 +10,8 @@ const html=read('miniapp/index.html');
 const app=read('miniapp/app.js');
 const config=read('miniapp/config.js');
 
-assert.match(html,/<title>WADEONIX<\/title>/);
-assert.match(html,/class="brand-mark">WX<\/span>/);
+assert.match(html,/<title>WadeOnix<\/title>/);
+assert.match(html,/class="brand-mark" src="bot_avatar\.jpg"/);
 assert.match(html,/<img class="app-icon app-avatar" src="bot_avatar\.jpg" alt="Wade Onix">/);
 assert.doesNotMatch(html,/class="app-icon">WX<\/div>/);
 assert.equal((html.match(/<strong>Wade Onix<\/strong>/g)||[]).length,2);
@@ -24,6 +24,9 @@ assert.doesNotMatch(app,/dwayne633/);
 assert.match(config,/releases\/download\/v5\.0\.0\/WADEONIX-v5\.0\.0\.zip/);
 assert.match(config,/botUsername:\s*"WadeOnix_Bot"/);
 assert.match(config,/apiUrl:\s*"https:\/\/fofan-miniapp-api\./);
+assert.match(html,/Выберите способ оплаты/);
+assert.match(app,/\/v1\/payments\/create/);
+assert.doesNotMatch(app,/CRYPTO_PAY_TOKEN|PLATEGA_SECRET|PAYMENT_GATEWAY_TOKEN/);
 
 for(const relative of ['start_banner.png','miniapp/start_banner.png']){
   const hash=crypto.createHash('sha256').update(fs.readFileSync(path.join(root,relative))).digest('hex');

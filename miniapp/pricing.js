@@ -1,10 +1,12 @@
 (function(global){
-  const matrix={basic:{3:1290,6:1890,12:2390},pro:{3:1990,6:2990,12:3790},unlimit:{3:4490,6:6490,12:8490}};
-  const original={basic:{3:2590,6:3790,12:4790},pro:{3:3990,6:5990,12:7590},unlimit:{3:6390,6:9290,12:12190}};
-  const discounts={basic:50,pro:50,unlimit:30};
-  const purchasableMonths=[3,6,12];
-  global.FM_PRICES=Object.freeze(matrix);
-  global.FM_ORIGINAL_PRICES=Object.freeze(original);
-  global.FM_DISCOUNT_PERCENT=Object.freeze(discounts);
-  global.FM_PURCHASABLE_MONTHS=Object.freeze(purchasableMonths);
+  const plans={
+    basic:{name:'Core',base:390,description:'Для ежедневных задач',descriptionEn:'For everyday editing',prices:{3:990,6:1790,12:2990}},
+    pro:{name:'Pro',base:590,description:'Полный набор WadeOnix',descriptionEn:'The complete WadeOnix toolkit',prices:{3:1490,6:2690,12:4490}},
+    unlimit:{name:'Ultimate',base:1890,description:'Максимальные возможности',descriptionEn:'Maximum possibilities',prices:{3:3990,6:5990,12:8990}}
+  };
+  Object.values(plans).forEach(p=>{Object.freeze(p.prices);Object.freeze(p)});
+  global.FM_PLANS=Object.freeze(plans);
+  global.FM_PRICES=Object.freeze(Object.fromEntries(Object.entries(plans).map(([code,p])=>[code,p.prices])));
+  global.FM_PURCHASABLE_MONTHS=Object.freeze([3,6,12]);
+  global.FM_QUOTE=(code,months)=>{const p=plans[code],total=p?.prices[months];return total?{total,monthly:Math.round(total/months),saving:p.base*months-total}:null};
 })(globalThis);

@@ -6,16 +6,19 @@ import {fileURLToPath} from 'node:url';
 await import('../miniapp/pricing.js');
 
 assert.deepEqual(globalThis.FM_PRICES, {
-  basic: {3:1290,6:1890,12:2390},
-  pro: {3:1990,6:2990,12:3790},
-  unlimit: {3:4490,6:6490,12:8490},
+  basic: {3:990,6:1790,12:2990},
+  pro: {3:1490,6:2690,12:4490},
+  unlimit: {3:3990,6:5990,12:8990},
 });
-assert.deepEqual(globalThis.FM_ORIGINAL_PRICES, {
-  basic: {3:2590,6:3790,12:4790},
-  pro: {3:3990,6:5990,12:7590},
-  unlimit: {3:6390,6:9290,12:12190},
-});
-assert.deepEqual(globalThis.FM_DISCOUNT_PERCENT, {basic:50,pro:50,unlimit:30});
+const expected={basic:[[330,180],[298,550],[249,1690]],pro:[[497,280],[448,850],[374,2590]],unlimit:[[1330,1680],[998,5350],[749,13690]]};
+for(const [code,quotes] of Object.entries(expected))for(const [i,months] of [3,6,12].entries()){
+  const quote=globalThis.FM_QUOTE(code,months);
+  assert.equal(quote.total,globalThis.FM_PRICES[code][months]);
+  assert.equal(quote.monthly,quotes[i][0]);
+  assert.equal(quote.saving,quotes[i][1]);
+}
+assert.equal(globalThis.FM_QUOTE('basic',1),null);
+assert.equal(globalThis.FM_QUOTE('unknown',3),null);
 assert.deepEqual(globalThis.FM_PURCHASABLE_MONTHS, [3,6,12]);
 assert.equal(Object.hasOwn(globalThis.FM_PRICES.basic, 1), false);
 

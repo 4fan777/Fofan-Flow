@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
   <meta name="theme-color" content="#000000">
-  <title>WADEONIX</title>
+  <title>WadeOnix</title>
   <link rel="stylesheet" href="styles.css">
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
@@ -12,7 +12,7 @@
   <div class="ambient"></div>
   <main class="shell">
     <header class="topbar">
-      <button class="brand" data-nav="home" aria-label="WADEONIX"><span class="brand-mark">WX</span><span>WADEONIX</span></button>
+      <button class="brand" data-nav="home" aria-label="WadeOnix — личный кабинет"><img class="brand-mark" src="bot_avatar.jpg" alt=""><span>Wade<span class="brand-light">Onix</span></span></button>
       <span id="connection" class="connection">ONLINE</span>
     </header>
 
@@ -38,18 +38,31 @@
     </section>
 
     <section id="screen-app" class="screen">
-      <div class="section-title"><span class="eyebrow">WADEONIX</span><h2 data-i18n="appTitle">Приложение</h2><p data-i18n="appText">Инструменты для быстрого монтажа в After Effects и Premiere Pro.</p></div>
+      <div class="section-title app-heading"><span class="eyebrow">ТВОЙ МОНТАЖ. ТВОЙ РИТМ.</span><h2>Больше, чем монтаж.</h2><p data-i18n="appText">Инструменты для быстрого монтажа в After Effects и Premiere Pro.</p></div>
       <article class="download-card"><img class="app-icon app-avatar" src="bot_avatar.jpg" alt="Wade Onix"><div><strong>Wade Onix</strong><span id="download-meta">v5.0.0 · Windows</span></div><button id="download-win" class="primary" data-i18n="download">Скачать</button></article>
       <article class="download-card disabled"><div class="app-icon apple">⌘</div><div><strong>Wade Onix</strong><span>macOS</span></div><button disabled data-i18n="soon">Скоро</button></article>
       <h3 data-i18n="whatInside">Что внутри</h3>
-      <div class="feature-grid"><div>✂<span data-i18n="silence">Удаление пауз</span></div><div>CC<span data-i18n="subs">Субтитры</span></div><div>♫<span data-i18n="beats">Маркеры по битам</span></div><div>FX<span>Fast FX + SFX</span></div></div>
+      <div id="tool-tabs" class="tool-tabs" role="tablist" aria-label="Категории инструментов"></div>
+      <article class="workspace-banner"><span class="eyebrow">WADEONIX</span><h2 id="workspace-title">Обработка</h2><em>workspace</em><span class="banner-motto">EDIT<br>FASTER<br>CREATE<br>MORE</span></article>
+      <div id="tool-list" class="tool-list" role="tabpanel"></div>
+      <p class="tool-note">Инструменты доступны в плагине для After Effects и Premiere Pro.</p>
     </section>
 
     <section id="screen-subs" class="screen">
-      <div class="section-title"><span class="eyebrow" data-i18n="plans">ТАРИФЫ</span><h2 data-i18n="chooseYour">Выбери свой тариф</h2><p data-i18n="oneAction">Одна завершённая операция в плагине = 1 действие.</p></div>
-      <div class="periods" id="periods"><button id="trial-button" class="free-period" type="button">Free<b>3 дня</b></button><button class="active" data-months="3">3 мес.</button><button data-months="6">6 мес.</button><button data-months="12">12 мес.</button></div>
-      <div id="plan-list" class="plan-list"></div>
-      <p class="fineprint" data-i18n="manualPay">Товары оплачиваются онлайн через Platega. После подтверждения оплаты ключ выдаётся автоматически.</p>
+      <div class="section-title subs-heading"><span class="eyebrow">Тарифы WadeOnix</span><h2>Выберите свой режим</h2><p>Свайпайте тарифы или нажмите на нужный</p></div>
+      <div class="plan-tabs" id="plan-tabs" role="tablist" aria-label="Тариф"><button data-plan="basic" role="tab">Core</button><button data-plan="pro" role="tab">Pro</button><button data-plan="unlimit" role="tab">Ultimate</button></div>
+      <article id="plan-card" class="plan-card" role="tabpanel" aria-label="Выбранный тариф">
+        <span id="plan-counter" class="plan-counter">1 / 3</span><div class="plan-stars" aria-hidden="true"></div>
+        <img class="plan-logo" src="bot_avatar.jpg" alt="WadeOnix">
+        <p id="plan-description"></p><h2 id="plan-name">Core</h2>
+        <div class="plan-monthly"><strong id="card-monthly"></strong><span>в месяц</span></div>
+        <div class="periods" id="periods" role="group" aria-label="Период подписки"><button class="active" data-months="3">3 месяца</button><button data-months="6">6 месяцев</button><button data-months="12">На год</button></div>
+      </article>
+      <div class="quote" aria-live="polite" aria-atomic="true"><div><small id="total-label">3 месяца · Итого</small><strong id="plan-total"></strong></div><div class="quote-monthly"><small>в месяц</small><strong id="quote-monthly"></strong><span id="plan-saving" class="saving"></span></div></div>
+      <button id="continue-plan" class="primary continue-button">Продолжить <span aria-hidden="true">›</span></button>
+      <details class="plan-details"><summary><span>Что входит в тариф<small>Полный список возможностей выбранного тарифа</small></span><span aria-hidden="true">›</span></summary><ul id="plan-features"></ul><p data-i18n="oneAction">Одна завершённая операция в плагине = 1 действие.</p></details>
+      <button id="trial-button" class="trial-link" type="button">Попробовать бесплатно · 3 дня <span aria-hidden="true">↗</span></button>
+      <p class="fineprint" data-i18n="manualPay">Оплата через Platega или Crypto Bot. После подтверждения ключ выдаётся автоматически.</p>
     </section>
 
     <section id="screen-me" class="screen">
@@ -60,9 +73,19 @@
     </section>
   </main>
 
-  <nav class="bottom-nav"><button class="avatar-nav active" data-nav="home"><img id="telegram-avatar" class="telegram-avatar" alt="" hidden></button><button data-nav="app"><i>◫</i><span>App</span></button><button data-nav="subs"><i>◇</i><span>Subs</span></button><button data-nav="me"><i>○</i><span>Me</span></button></nav>
+  <nav class="bottom-nav" aria-label="Главная навигация"><button class="avatar-nav active" data-nav="home" aria-label="Мой кабинет"><img id="telegram-avatar" class="telegram-avatar" alt="Аватар Telegram" hidden></button><button data-nav="app"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.7"/><rect x="14" y="3" width="7" height="7" rx="1.7"/><rect x="3" y="14" width="7" height="7" rx="1.7"/><rect x="14" y="14" width="7" height="7" rx="1.7"/></svg><span>App</span></button><button data-nav="subs"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 7 3 11h12l3-11-6 4-3-8-3 8-6-4ZM6 21h12"/></svg><span>Subs</span></button><button data-nav="me"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="4"/><path d="M4 22v-2a8 8 0 0 1 16 0v2"/></svg><span>Me</span></button></nav>
   <div id="toast" class="toast"></div>
   <dialog id="modal"><button id="modal-close" class="modal-close">×</button><div id="modal-body"></div></dialog>
+  <dialog id="payment-sheet" class="payment-sheet" aria-labelledby="payment-title">
+    <div class="payment-sheet-handle" aria-hidden="true"></div>
+    <h2 id="payment-title">Выберите способ оплаты</h2>
+    <p>Сумма будет рассчитана на сервере по выбранному тарифу.</p>
+    <div class="payment-methods">
+      <button type="button" data-payment-provider="platega"><span class="payment-method-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="M2.5 10h19M6 15h4"/></svg></span><span><strong>Карта / СБП</strong><small>Через Platega</small></span><b aria-hidden="true">›</b></button>
+      <button type="button" data-payment-provider="crypto_pay"><span class="payment-method-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 7v10l8 5 8-5V7Z"/><path d="m8 10 4-2 4 2-4 6Z"/></svg></span><span><strong>Crypto Bot</strong><small>Оплата криптовалютой</small></span><b aria-hidden="true">›</b></button>
+    </div>
+    <button id="payment-cancel" class="payment-cancel" type="button">Отмена</button>
+  </dialog>
   <script src="config.js"></script><script src="pricing.js"></script><script src="app.js"></script>
 </body>
 </html>
