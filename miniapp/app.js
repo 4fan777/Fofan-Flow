@@ -40,6 +40,7 @@
     $$('#periods button').forEach(b=>{const active=+b.dataset.months===state.months;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active))});
     const features=$('#plan-features');features.replaceChildren();
     for(const text of state.data?.plans?.find(p=>p.code===state.plan)?.features||[]){const li=document.createElement('li');li.textContent=text;features.append(li)}
+    for(const element of [$('#plan-card'),$('.quote')]){element.classList.remove('switching');void element.offsetWidth;element.classList.add('switching')}
   }
   function renderNews(){const b=$('#news-list');b.innerHTML='';for(const n of state.data.news||[]){const a=document.createElement('article');a.className='news-item';a.innerHTML=`<time>${new Date(n.published_at).toLocaleDateString()}</time><h4></h4><p></p>`;a.querySelector('h4').textContent=n.title;a.querySelector('p').textContent=n.body;b.appendChild(a)}if(!b.children.length)b.innerHTML='<article class="news-item"><p>Пока без новостей.</p></article>'}
   let paymentBusy=false,paymentReturnChecked=false;
