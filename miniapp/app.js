@@ -36,6 +36,7 @@
     $('#plan-total').textContent=money(quote.total);
     $('#total-label').textContent=(state.months===12?'На год':state.months===3?'3 месяца':'6 месяцев')+' · Итого';
     $('#plan-saving').textContent='Экономия '+money(quote.saving);
+    const planKeys=Object.keys(planConfig),planTabs=$('#plan-tabs');planTabs.style.setProperty('--plan-index',String(planKeys.indexOf(state.plan)));
     $$('#plan-tabs button').forEach(b=>{const active=b.dataset.plan===state.plan;b.classList.toggle('active',active);b.setAttribute('aria-selected',String(active));b.tabIndex=active?0:-1});
     $$('#periods button').forEach(b=>{const active=+b.dataset.months===state.months;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active))});
     const features=$('#plan-features');features.replaceChildren();
