@@ -102,7 +102,12 @@ dialog{max-width:560px;width:calc(100% - 28px);max-height:82vh;border:1px solid 
 dialog::backdrop{background:rgba(0,0,0,.75)}
 .modal-close{float:right;border:0;background:none;color:var(--text);font-size:26px}
 .legal-copy{font-size:12px;line-height:1.65;color:var(--muted)}
-.legal-copy h2{color:var(--text)}
+.legal-copy h2{color:var(--text);padding-right:30px}
+.legal-copy h3{margin:20px 0 7px;color:var(--text);font-size:13px;line-height:1.35}
+.legal-copy p{margin:0 0 10px}
+.legal-copy ul{margin:0 0 12px;padding-left:18px}
+.legal-copy li{margin:0 0 6px}
+.legal-copy .legal-date{margin-top:-6px;color:#727277;font-size:10px;text-transform:uppercase;letter-spacing:.08em}
 .legal-copy .notice{padding:12px;border:1px solid var(--line);background:var(--card2);border-radius:12px;color:var(--text)}
 /* Shared WadeOnix surfaces. Telegram supplies the live safe-area insets. */
 :root{--bg:#080809;--card:#111112;--card2:#19191b;--muted:#929294;--line:rgba(255,255,255,.12);--nav:90px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
