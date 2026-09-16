@@ -84,6 +84,8 @@
       <button type="button" data-payment-provider="platega"><span class="payment-method-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="M2.5 10h19M6 15h4"/></svg></span><span><strong>Карта / СБП</strong><small>Через Platega</small></span><b aria-hidden="true">›</b></button>
       <button type="button" data-payment-provider="crypto_pay"><span class="payment-method-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 7v10l8 5 8-5V7Z"/><path d="m8 10 4-2 4 2-4 6Z"/></svg></span><span><strong>Crypto Bot</strong><small>Оплата криптовалютой</small></span><b aria-hidden="true">›</b></button>
     </div>
+    <p id="payment-status" class="payment-status" role="status" aria-live="polite" hidden></p>
+    <a id="payment-open" class="payment-open" href="#" target="_blank" rel="noopener noreferrer" hidden>Открыть страницу оплаты <span aria-hidden="true">›</span></a>
     <button id="payment-cancel" class="payment-cancel" type="button">Отмена</button>
   </dialog>
   <script src="config.js"></script><script src="pricing.js"></script><script src="app.js"></script>
