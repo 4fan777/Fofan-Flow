@@ -14,7 +14,7 @@ assert.match(app,/const popup=reserveCheckoutWindow\(\),loading=/);
 assert.match(app,/popup\.location\.replace\(url\)/);
 assert.match(app,/tg\.openLink\(url,\{try_instant_view:false\}\)/);
 assert.match(app,/Если страница не открылась, нажмите кнопку ниже/);
-assert.match(app,/body:JSON\.stringify\(\{provider,plan:state\.plan,period:state\.months,request_id:requestId\(\)\}\)/);
+assert.match(app,/body:JSON\.stringify\(\{provider,plan:state\.plan,period:state\.months,request_id:checkoutRequests\[intent\]\}\)/);
 assert.doesNotMatch(app,/CRYPTO_PAY_TOKEN|PLATEGA_SECRET|PAYMENT_GATEWAY_TOKEN|amount:state/);
 
 console.log('Payment handoff UI and secret boundary OK');
