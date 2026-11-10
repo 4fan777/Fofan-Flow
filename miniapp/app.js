@@ -24,28 +24,35 @@
     catch(e){$('#connection').textContent='OFFLINE';$('#connection').style.color='#98989d';state.data=demo();render();toast(state.lang==='ru'?'Демо-режим: backend недоступен':'Demo mode: backend unavailable')}
   }
   async function selectLicense(key){const initData=tg?.initData||'';if(!initData)throw new Error('Откройте кабинет через Telegram');const r=await fetch(cfg.apiUrl.replace(/\/$/,'')+'/v1/select-license',{method:'POST',headers:{'content-type':'application/json','x-telegram-init-data':initData},body:JSON.stringify({license_key:key})});const data=await r.json();if(!r.ok)throw new Error(data.message||'Не удалось подключить ключ');return data}
-  function render(){const d=state.data,u=d.user||{},s=d.subscription,usage=d.usage||{};$('#first-name').textContent=u.first_name||'монтажёр';$('#profile-name').textContent=[u.first_name,u.last_name].filter(Boolean).join(' ')||'Wade';$('#profile-username').textContent=u.username?'@'+u.username:'Telegram';$('#avatar').textContent=(u.first_name||'WX').slice(0,2).toUpperCase();$('#plan-badge').textContent=s?.plan_name||'FREE';$('#expiry').textContent=s?.expires_at?new Date(s.expires_at).toLocaleDateString(state.lang==='ru'?'ru-RU':'en-US'):(state.lang==='ru'?'Без подписки':'No subscription');let lim=usage.limit===-1?'∞':(usage.limit||0);$('#usage-value').textContent=`${usage.used||0} / ${lim}`;let p=Math.min(100,usage.percent||0);$('#usage-percent').textContent=usage.limit===-1?'∞':p+'%';$('#usage-bar').style.width=p+'%';$('#usage-ring').style.background=`conic-gradient(var(--accent) ${p}%,var(--track) 0)`;$('#cycle-label').textContent=usage.cycle_ends_at?((state.lang==='ru'?'Обновится ':'Resets ')+new Date(usage.cycle_ends_at).toLocaleDateString()):(state.lang==='ru'?'Обновится после активации':'Starts after activation');$('#launches').textContent=d.activity?.launches_7d||0;const appVersion=d.app?.version||cfg.appVersion||'5.0.2';$('#version').textContent=appVersion;$('#download-meta').textContent=`v${appVersion} · Windows`;$('#license-key').textContent=s?.license_key||((state.lang==='ru')?'Нет активного ключа':'No active key');$('#referrals').textContent=(u.referrals||0)+' / 10';const trial=$('#trial-button');const available=d.trial_available!==false;trial.disabled=!available;trial.classList.toggle('trial-used',!available);trial.title=available?'Пробный период на 3 дня':'Пробный период уже использован';renderPlans();renderNews();}
+  function render(){const d=state.data,u=d.user||{},s=d.subscription,usage=d.usage||{};$('#first-name').textContent=u.first_name||'монтажёр';$('#profile-name').textContent=[u.first_name,u.last_name].filter(Boolean).join(' ')||'Wade';$('#profile-username').textContent=u.username?'@'+u.username:'Telegram';$('#avatar').textContent=(u.first_name||'WX').slice(0,2).toUpperCase();$('#plan-badge').textContent=s?.plan_name||'FREE';$('#expiry').textContent=s?.access_kind==='lifetime'?(state.lang==='ru'?'Бессрочно':'Lifetime'):s?.expires_at?new Date(s.expires_at).toLocaleDateString(state.lang==='ru'?'ru-RU':'en-US'):(state.lang==='ru'?'Без подписки':'No subscription');let lim=usage.limit===-1?'∞':(usage.limit||0);$('#usage-value').textContent=`${usage.used||0} / ${lim}`;let p=Math.min(100,usage.percent||0);$('#usage-percent').textContent=usage.limit===-1?'∞':p+'%';$('#usage-bar').style.width=p+'%';$('#usage-ring').style.background=`conic-gradient(var(--accent) ${p}%,var(--track) 0)`;$('#cycle-label').textContent=usage.cycle_ends_at?((state.lang==='ru'?'Обновится ':'Resets ')+new Date(usage.cycle_ends_at).toLocaleDateString()):(state.lang==='ru'?'Обновится после активации':'Starts after activation');$('#launches').textContent=d.activity?.launches_7d||0;const appVersion=d.app?.version||cfg.appVersion||'5.0.2';$('#version').textContent=appVersion;$('#download-meta').textContent=`v${appVersion} · Windows`;$('#license-key').textContent=s?.license_key||((state.lang==='ru')?'Нет активного ключа':'No active key');$('#referrals').textContent=(u.referrals||0)+' / 10';const trial=$('#trial-button');const available=d.trial_available!==false;trial.disabled=!available;trial.classList.toggle('trial-used',!available);trial.title=available?'Пробный период на 3 дня':'Пробный период уже использован';renderPlans();renderNews();}
   function renderPlans(){
+    const lifetime=planConfig[state.plan].lifetime===true;
+    if(lifetime)state.months=0;
+    else if(!purchasableMonths.includes(state.months))state.months=1;
     const plan=planConfig[state.plan],quote=globalThis.FM_QUOTE(state.plan,state.months);
     $('#screen-subs').dataset.plan=state.plan;
     $('#plan-name').textContent=plan.name;
     $('#plan-description').textContent=state.lang==='ru'?plan.description:plan.descriptionEn;
     $('#plan-counter').textContent=(Object.keys(planConfig).indexOf(state.plan)+1)+' / 3';
-    $('#card-monthly').textContent=money(quote.monthly);
-    $('#quote-monthly').textContent=money(quote.monthly);
+    $('#card-monthly').textContent=money(lifetime?quote.total:quote.monthly);
+    $('.plan-monthly span').textContent=lifetime?'навсегда':'в месяц';
+    $('.quote-monthly').hidden=lifetime;
+    $('#periods').style.display=lifetime?'none':'';
+    $('#quote-monthly').textContent=lifetime?'':money(quote.monthly);
     $('#plan-total').textContent=money(quote.total);
-    $('#total-label').textContent=(state.months===12?'Год':state.months===3?'3 месяца':'1 месяц')+' · Итого';
+    $('#total-label').textContent=(lifetime?'Один платёж · Навсегда':state.months===12?'Год':state.months===3?'3 месяца':'1 месяц')+' · Итого';
     const saving=$('#plan-saving');saving.textContent=quote.saving?'Экономия '+money(quote.saving):'';saving.hidden=!quote.saving;
     const planKeys=Object.keys(planConfig),planTabs=$('#plan-tabs');planTabs.style.setProperty('--plan-index',String(planKeys.indexOf(state.plan)));
     $$('#plan-tabs button').forEach(b=>{const active=b.dataset.plan===state.plan;b.classList.toggle('active',active);b.setAttribute('aria-selected',String(active));b.tabIndex=active?0:-1});
     $$('#periods button').forEach(b=>{const active=+b.dataset.months===state.months;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active))});
     const features=$('#plan-features');features.replaceChildren();
-    for(const text of state.data?.plans?.find(p=>p.code===state.plan)?.features||[]){const li=document.createElement('li');li.textContent=text;features.append(li)}
+    const featureList=lifetime?['Все функции плагина','Безлимит действий навсегда','Все обновления включены','1 компьютер с переносом через бота']:(state.data?.plans?.find(p=>p.code===state.plan)?.features||[]);
+    for(const text of featureList){const li=document.createElement('li');li.textContent=text;features.append(li)}
     for(const element of [$('#plan-card'),$('.quote')]){element.classList.remove('switching');void element.offsetWidth;element.classList.add('switching')}
   }
   function renderNews(){const b=$('#news-list');b.innerHTML='';for(const n of state.data.news||[]){const a=document.createElement('article');a.className='news-item';a.innerHTML=`<time>${new Date(n.published_at).toLocaleDateString()}</time><h4></h4><p></p>`;a.querySelector('h4').textContent=n.title;a.querySelector('p').textContent=n.body;b.appendChild(a)}if(!b.children.length)b.innerHTML='<article class="news-item"><p>Пока без новостей.</p></article>'}
   let paymentBusy=false,paymentReturnChecked=false;const checkoutRequests={};
-  function validSelection(code){return purchasableMonths.includes(state.months)&&Boolean(prices[code]?.[state.months])}
+  function validSelection(code){return (planConfig[code]?.lifetime===true?state.months===0:purchasableMonths.includes(state.months))&&Boolean(globalThis.FM_QUOTE(code,state.months))}
   function openPaymentSheet(){if(!validSelection(state.plan)){toast('Этот период недоступен');return}if(!tg?.initData){toast('Откройте Mini App через Telegram');return}resetPaymentSheet();$('#payment-sheet').showModal();tg?.HapticFeedback?.selectionChanged()}
   function paymentUrl(value,provider){try{const u=new URL(value),allowed=provider==='platega'?['pay.platega.io','app.platega.io']:['t.me','telegram.me','pay.crypt.bot','testnet-pay.crypt.bot'];return u.protocol==='https:'&&allowed.includes(u.hostname)&&!u.username&&!u.password?u.toString():''}catch{return''}}
   function requestId(){return window.crypto?.randomUUID?.()||`${Date.now()}-${Math.random().toString(36).slice(2)}`}
@@ -85,7 +92,7 @@
       <p>Если Пользователь не согласен с условиями, он обязан прекратить использование WADEONIX.</p>
       <h3>2. Предмет Соглашения</h3>
       <p>WADEONIX предоставляет ограниченное, неисключительное и непередаваемое право использовать программные функции в пределах выбранного тарифа и оплаченного срока. Актуальные цены и состав тарифов показываются в Mini App до оплаты.</p>
-      <p>Пробный доступ действует 3 дня и включает 50 действий. Core включает 350 действий в неделю и 1 устройство; Pro — 350 действий в неделю, Premium Projects и 1 устройство; Ultimate — безлимит действий, Premium Projects, WADEONIX Essentials Pack и 2 устройства.</p>
+      <p>Пробный доступ действует 3 дня и включает 50 действий. Core включает 350 действий в неделю и 1 устройство; Pro — 350 действий в неделю, Premium Projects и 1 устройство; Ultimate при новой покупке — 2990 ₽ один раз: все функции, безлимит действий и обновления навсегда, 1 компьютер с переносом через бота. Условия ранее оплаченных подписок Ultimate сохраняются.</p>
       <h3>3. Правила использования</h3>
       <p>Пользователь обязуется применять Сервис законно и по прямому назначению. Запрещены передача и перепродажа ключа, обход лицензии и ограничений, вмешательство в работу Сервиса, распространение его файлов без разрешения и использование в целях, нарушающих права третьих лиц.</p>
       <h3>4. Интеллектуальная собственность</h3>
