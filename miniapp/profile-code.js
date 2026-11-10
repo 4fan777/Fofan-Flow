@@ -16,7 +16,7 @@ export function mountProfileCode({document,telegram,config,fetcher=fetch}){
  const keyText=()=>String(key.textContent||'').trim();let selected=keyText();
  const observer=new MutationObserver(()=>{if(keyText()!==selected){selected=keyText();clear();status.textContent='';}});observer.observe(key,{childList:true,characterData:true,subtree:true});
  generate.addEventListener('click',async()=>{
-  if(busy)return;clear();const turn=generation,license=keyText();
+  if(busy)return;if(code&&expiresAt>Date.now()){status.textContent='Код уже готов. Скопируйте 6 цифр и введите их в плагине.';return;}clear();const turn=generation,license=keyText();
   if(!telegram?.initData){status.textContent='Откройте Mini App через @WadeOnix_Bot.';return;}
   if(!/^FF1(?:-[A-Z2-9]{4}){4}$/.test(license)){status.textContent='Сначала подключите свой ключ лицензии.';return;}
   busy=true;generate.disabled=true;status.textContent='Создаём код…';controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),10000);
