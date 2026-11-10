@@ -60,8 +60,9 @@ export async function mountPairing({document,config,telegram,fetcher=fetch}){
   catch{if(!closed)message.textContent='Подтверждение не выполнено. Создайте новый запрос в плагине.'}
  });
  try{const details=await session.inspect();if(closed)return;
-  fingerprint.textContent=transfer?'Старый компьютер: '+sourceFingerprint+' → Новый компьютер: '+details.fingerprint:details.fingerprint;
-  message.textContent=(transfer?'После завершения переноса старый компьютер потеряет доступ. ':'')+'Сравните код устройства с кодом в плагине. Подтверждайте только свой компьютер. Не подтверждайте запрос по чужой ссылке.';
+  fingerprint.textContent=transfer?'Старый компьютер: '+sourceFingerprint+' → Новый компьютер: '+details.fingerprint:details.fingerprint.toUpperCase().match(/.{4}/g).join(' ');
+  if(!transfer){fingerprint.setAttribute('aria-label','Код компьютера для сравнения');Object.assign(fingerprint.style,{fontFamily:'monospace',fontSize:'16px',lineHeight:'1.8',letterSpacing:'.04em'});}
+  message.textContent=transfer?'После завершения переноса старый компьютер потеряет доступ. Сравните код устройства с кодом в плагине. Подтверждайте только свой компьютер. Не подтверждайте запрос по чужой ссылке.':'Сравните все группы кода ниже с полем «Код компьютера для сравнения» в плагине. Если всё совпало и вы сами начали подключение — нажмите «Это мой компьютер». Если код отличается или запрос не ваш — нажмите «Отмена».';
   approve.disabled=false;timer=setTimeout(()=>{approve.disabled=true;session.close();message.textContent='Запрос истёк. Создайте новый запрос в плагине.'},Math.max(0,details.expiresAt-Date.now()));
  }catch{if(!closed)message.textContent='Запрос недоступен. Откройте новую ссылку из плагина через свой Telegram.'}
  return {close};
